@@ -2,6 +2,20 @@
 
 using namespace std;
 
+void SuffelBallPool(int* ItemPool, int PoolSize)
+{
+	for (int i = 0; i < PoolSize; i++)
+	{
+		int RandomIndex = rand() % PoolSize;
+		int Temp = 0;
+
+		// i의 위치와 RandomIndex의 요소 바꾸기
+		Temp = ItemPool[i];
+		ItemPool[i] = ItemPool[RandomIndex];
+		ItemPool[RandomIndex] = Temp;
+	}
+}
+
 bool IsEqual(int* Result, int ResultSize, int Number)
 {
 	for (int i = 0; i < ResultSize; i++)
@@ -16,17 +30,9 @@ bool IsEqual(int* Result, int ResultSize, int Number)
 
 void RandomPick(int* ItemPool, int* Result, int ResultSize)
 {
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < ResultSize; i++)
 	{
-		int RandomNumber = rand() % 45;
-		if (IsEqual(Result, ResultSize, ItemPool[RandomNumber]))
-		{
-			i--;
-		}
-		else
-		{
-			Result[i] = ItemPool[RandomNumber];
-		}
+		Result[i] = ItemPool[i];
 	}
 }
 
@@ -45,6 +51,9 @@ int main()
 	{
 		BallPool[i] = i + 1;
 	}
+
+	// 공 섞기
+	SuffelBallPool(BallPool, 45);
 
 	// 공 랜덤 뽑기
 	RandomPick(BallPool, Result, ResultSize);
