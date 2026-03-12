@@ -50,7 +50,7 @@ int main()
 	}
 
 	// 공 섞기
-	SufflePool(ItemPool, 45);
+	SufflePool(ItemPool, PoolSize);
 
 	// 공 랜덤 뽑기
 	RandomPick(ItemPool, Result, ResultSize);
