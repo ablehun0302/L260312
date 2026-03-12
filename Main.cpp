@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void SuffelBallPool(int* ItemPool, int PoolSize)
+void SufflePool(int* ItemPool, int PoolSize)
 {
 	for (int i = 0; i < PoolSize; i++)
 	{
@@ -14,18 +14,6 @@ void SuffelBallPool(int* ItemPool, int PoolSize)
 		ItemPool[i] = ItemPool[RandomIndex];
 		ItemPool[RandomIndex] = Temp;
 	}
-}
-
-bool IsEqual(int* Result, int ResultSize, int Number)
-{
-	for (int i = 0; i < ResultSize; i++)
-	{
-		if (Result[i] == Number)
-		{
-			return true;
-		}
-	}
-	return false;
 }
 
 void RandomPick(int* ItemPool, int* Result, int ResultSize)
@@ -41,31 +29,42 @@ int main()
 	// 45개의 공에서 6개의 공 뽑기 (로또)
 	srand(time(nullptr));
 
-	int ResultSize = 6;
+	int* ItemPool;
+	int* Result;
 
-	int BallPool[45] = { 0, };
-	int* Result = new int[ResultSize];
+	int PoolSize = 0;
+	int ResultSize = 0;
+
+	cout << "주머니에 들어있는 공 갯수: " << endl;
+	cin >> PoolSize;
+	cout << "뽑을 갯수: " << endl;
+	cin >> ResultSize;
+
+	ItemPool = new int[PoolSize];
+	Result = new int[ResultSize];
 	
 	// 공 초기화
-	for (int i = 0; i < 45; i++)
+	for (int i = 0; i < PoolSize; i++)
 	{
-		BallPool[i] = i + 1;
+		ItemPool[i] = i + 1;
 	}
 
 	// 공 섞기
-	SuffelBallPool(BallPool, 45);
+	SufflePool(ItemPool, 45);
 
 	// 공 랜덤 뽑기
-	RandomPick(BallPool, Result, ResultSize);
+	RandomPick(ItemPool, Result, ResultSize);
 
 	// 결과 출력
 	cout << "결과" << endl;
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < ResultSize; i++)
 	{
 		cout << Result[i] << endl;
 	}
 
 	// 할당 해제
+	delete[] ItemPool;
 	delete[] Result;
+	ItemPool = nullptr;
 	Result = nullptr;
 }
